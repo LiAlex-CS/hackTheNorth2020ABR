@@ -6,7 +6,7 @@ import Footer from './Footer';
 
 // import Page components
 import HomeScreen from './screens/HomeScreen/HomeScreen';
-// import ListingsScreen from './screens/ListingsScreen/ListingsScreen';
+import ListingsScreen from './screens/ListingsScreen/ListingsScreen';
 // import MessagesScreen from './screens/MessagesScreen/MessagesScreen';
 // import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 // import ContactScreen from './screens/ContactScreen/ContactScreen';
@@ -51,7 +51,7 @@ class Main extends Component {
 
         const ListingScreenPage = () =>{
             return(
-                <div></div>
+                <ListingsScreen/>
             );
         }
 
