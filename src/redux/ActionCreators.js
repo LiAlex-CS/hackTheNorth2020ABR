@@ -53,7 +53,7 @@ export const fetchListings = () => (dispatch) => {
         })
         .then(response => response.json())
         .then(listings => dispatch(addListings(listings)))
-        .catch(error => dispatch(ListingsFailed(error.message)));
+        .catch(error => dispatch(listingsFailed(error.message)));
 }
 
 // fetching for Profiles
