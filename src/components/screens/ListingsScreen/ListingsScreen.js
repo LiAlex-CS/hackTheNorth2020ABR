@@ -5,6 +5,15 @@ import ListingCard from './components/ListingCard';
 // utils
 import { listingInput } from './utils/testInput'
 
+
+const mapListingCards = (data) =>(
+    data.map((listing)=>(
+        <div className="row">
+            <ListingCard data={listing}/>
+        </div>
+    ))
+);
+
 class LisitngScreen extends Component {
     constructor(props) {
         super(props);
@@ -15,10 +24,10 @@ class LisitngScreen extends Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-12 col-lg-7">
-                        <Map/>
+                        <Map data={listingInput}/>
                     </div>
-                    <div className="col-5">
-                        <ListingCard data={listingInput}/>
+                    <div className="col-12 col-lg-5">
+                        {mapListingCards(listingInput)}
                     </div>
                 </div>
             </div>

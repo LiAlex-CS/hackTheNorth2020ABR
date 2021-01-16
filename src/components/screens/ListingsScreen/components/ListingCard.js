@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Carousel, CarouselItem, CarouselControl } from 'reactstrap';
 
+import { price } from '../utils/price';
+
 export default function ListingCardComponent({data}){
 
     const [activeIndex, setActiveIndex] = useState(0);
@@ -30,7 +32,7 @@ export default function ListingCardComponent({data}){
             onExited={() => setAnimating(false)}
             key={index}
           >
-            <img src={src} alt="img did not load"/>
+            <img src={src} alt="img did not load" style={{resizeMode: 'contain'}}/>
           </CarouselItem>
         );
     });
@@ -51,6 +53,7 @@ export default function ListingCardComponent({data}){
             </div>
             <div class="card-block px-2 col-8">
                 <h4 class="card-title mt-4"> {data.title}</h4>
+                <h6>{`Price: ${price(data.price)} per ${data.payRate}`}</h6>
                 <p class="card-text text-muted">{data.address}</p>
                 <p class="card-text">{`This posting was made by ${data.listingUserId} on ${data.date}`}</p>
                 <p class="card-text">{data.description}</p>
