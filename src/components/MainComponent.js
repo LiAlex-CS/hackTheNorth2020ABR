@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 
 // import general components
-// import Header from './Header';
-// import Footer from './Footer';
+import Header from './Header';
+import Footer from './Footer';
 
 // import Page components
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 // import ListingsScreen from './screens/ListingsScreen/ListingsScreen';
 // import MessagesScreen from './screens/MessagesScreen/MessagesScreen';
 // import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
+// import ContactScreen from './screens/ContactScreen/ContactScreen';
 // import SingleListingScreen from './screens/SingleListingScreen/SingleListingScreen';
-
-
 
 // redux imports
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
@@ -74,6 +73,12 @@ class Main extends Component {
             );
         }
 
+        const ContactScreenPage = () =>{
+            return(
+                <div></div>
+            );
+        }
+
         const SingleListingScreenPage = () =>{
             return(
                 <div></div>
@@ -82,17 +87,18 @@ class Main extends Component {
 
         return (
             <div>
-                {/* <Header/> */}
+                <Header/>
                 <Switch>
                     <Route path="/home" component={HomeScreenPage}/>
                     <Route path="/listings" component={ListingScreenPage}/>
                     <Route path="/messages" component={MessagesScreenPage}/>
                     <Route path="/:profileId" component={SignUpScreenPage}/>
                     <Route path="/signup" component={SignUpScreenPage}/>
+                    <Route path="/contact" component={ContactScreenPage}/>
                     <Route path="/listings/:listingId" component={SingleListingScreenPage}/>
                     <Redirect to="/home"/>
                 </Switch>
-                {/* <Footer/> */}
+                <Footer/>
             </div>
         );
     }
