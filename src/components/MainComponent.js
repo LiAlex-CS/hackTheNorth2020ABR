@@ -7,27 +7,32 @@ import Footer from './Footer';
 // import Page components
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import ListingsScreen from './screens/ListingsScreen/ListingsScreen';
-// import MessagesScreen from './screens/MessagesScreen/MessagesScreen';
+import PostListingScreen from './screens/PostListingScreen/PostListingScreen';
 // import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 // import ContactScreen from './screens/ContactScreen/ContactScreen';
 // import SingleListingScreen from './screens/SingleListingScreen/SingleListingScreen';
+import SignUpScreen from './screens/SignUpScreen/SignUpScreen';
 
 // redux imports
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { fetchListings, fetchProfiles } from '../redux/ActionCreators';
+import { fetchListings, fetchProfiles, loginUser, logoutUser, signUpUser } from '../redux/ActionCreators';
 
 const mapStateToProps = state =>{
     return {
         listings: state.listings,
-        profiles: state.profiles
+        profiles: state.profiles,
+        auth: state.auth
     }
 }
 
 const mapDispatchToProps = dispatch => ({
     fetchListings: () => {dispatch(fetchListings())},
-    fetchProfiles: () => {dispatch(fetchProfiles())}
+    fetchProfiles: () => {dispatch(fetchProfiles())},
+    loginUser: (creds) => {dispatch(loginUser(creds))},
+    logoutUser: () => {dispatch(logoutUser())},
+    signUpUser: (creds) => {dispatch(signUpUser(creds))}
 });
 
 
@@ -55,9 +60,9 @@ class Main extends Component {
             );
         }
 
-        const MessagesScreenPage = () =>{
+        const PostListingScreenPage = () =>{
             return(
-                <div></div>
+                <PostListingScreen/>
             );
         }
 
@@ -69,7 +74,9 @@ class Main extends Component {
 
         const SignUpScreenPage = () =>{
             return(
-                <div></div>
+                <SignUpScreen
+                    postSignUp={this.props.signUpUser}
+                    />
             );
         }
 
@@ -87,11 +94,15 @@ class Main extends Component {
 
         return (
             <div>
-                <Header/>
+                <Header
+                    auth={this.props.auth} 
+                    loginUser={this.props.loginUser} 
+                    logoutUser={this.props.logoutUser}
+                />
                 <Switch>
                     <Route path="/home" component={HomeScreenPage}/>
                     <Route path="/listings" component={ListingScreenPage}/>
-                    <Route path="/messages" component={MessagesScreenPage}/>
+                    <Route path="/post_listing" component={PostListingScreenPage}/>
                     <Route path="/:profileId" component={SignUpScreenPage}/>
                     <Route path="/signup" component={SignUpScreenPage}/>
                     <Route path="/contact" component={ContactScreenPage}/>

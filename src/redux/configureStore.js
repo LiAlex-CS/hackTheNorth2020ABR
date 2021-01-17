@@ -5,10 +5,10 @@ import { createForms } from 'react-redux-form';
 // import reducers
 import { Listings } from './reducers/Listings';
 import { Profiles } from './reducers/Profiles';
-
+import { Auth } from './reducers/auth';
 
 // import forms
-import { Contact } from './forms';
+import { Contact, SignUp } from './forms';
 
 
 export const ConfigureStore = () =>{
@@ -16,6 +16,7 @@ export const ConfigureStore = () =>{
         combineReducers({
             listings: Listings,
             profiles: Profiles,
+            auth: Auth,
             ...createForms({
                 contact: Contact
             })

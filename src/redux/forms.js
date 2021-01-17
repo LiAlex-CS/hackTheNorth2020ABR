@@ -5,3 +5,7 @@ export const Contact = {
     email: '',
     message: ''
 }
+
+export const postListing = {
+    
+}
