@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Jumbotron } from 'reactstrap';
 
 const jumbotronStyle = {
-    backgroundColor: 'skyblue',
+    backgroundImage: 'url(./assets/jumbotron.png)',
     height: "540px"
 }
 

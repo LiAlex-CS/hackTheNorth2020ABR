@@ -20,12 +20,12 @@ class LisitngScreen extends Component {
         super(props);
     }
     render() {
-        if(this.props.listingsLoading || this.props.profilesLoading){
+        if(this.props.listingsLoading){
             return(
                 <Loading/>
             );
         }
-        else if(this.props.listingsErrMess || this.props.profilesErrMess){
+        else if(this.props.listingsErrMess){
             return(
                 <div className="container">
                     <div className="row">
@@ -34,21 +34,21 @@ class LisitngScreen extends Component {
                     <div className="row">
                         <h3>{this.props.listingsErrMess ? "Error: " + this.props.listingsErrMess: ""}</h3>
                     </div>
-                    <div className="row">
-                        <h3>{this.props.profilesErrMess ? "Error: " + this.props.profilesErrMess: ""}</h3>
-                    </div>
                 </div>
             );
         }
         else{
+            console.log(this.props.listings);
             return (
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 col-lg-7">
-                            <Map data={listingInput}/>
+                            {/* <Map data={listingInput}/> */}
+                            <Map data={this.props.listings}/>
                         </div>
                         <div className="col-12 col-lg-5">
-                            {mapListingCards(listingInput)}
+                            {/* {mapListingCards(listingInput)} */}
+                            {mapListingCards(this.props.listings)}
                         </div>
                     </div>
                 </div>

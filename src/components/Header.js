@@ -66,7 +66,7 @@ class Header extends Component {
                     <NavbarBrand href="/"> 
                         {/* <img src="./assets/icon/ICON.ico" className="icon"/> */}
                         <NavLink href="/">
-                            HOME ICON
+                            HOME
                         </NavLink>
                     </NavbarBrand>
                     <NavbarToggler onClick = {this.openNavbar}/>

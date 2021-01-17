@@ -10,13 +10,13 @@ export default function ListingCardComponent({data}){
   
     const next = () => {
       if (animating) return;
-      const nextIndex = activeIndex === data.listingImgSrcs.length - 1 ? 0 : activeIndex + 1;
+      const nextIndex = activeIndex === data.images.length - 1 ? 0 : activeIndex + 1;
       setActiveIndex(nextIndex);
     }
   
     const previous = () => {
       if (animating) return;
-      const nextIndex = activeIndex === 0 ? data.listingImgSrcs.length - 1 : activeIndex - 1;
+      const nextIndex = activeIndex === 0 ? data.images.length - 1 : activeIndex - 1;
       setActiveIndex(nextIndex);
     }
   
@@ -25,14 +25,14 @@ export default function ListingCardComponent({data}){
       setActiveIndex(newIndex);
     }
 
-    const slides = data.listingImgSrcs.map((src, index) => {
+    const slides = data.images.map((src, index) => {
         return (
           <CarouselItem
             onExiting={() => setAnimating(true)}
             onExited={() => setAnimating(false)}
             key={index}
           >
-            <img src={src} alt="img did not load" style={{resizeMode: 'contain'}}/>
+            <img src={src} alt="img did not load" style={{resizeMode: 'contain', height:"200px"}}/>
           </CarouselItem>
         );
     });
@@ -57,7 +57,7 @@ export default function ListingCardComponent({data}){
                 <p class="card-text text-muted">{data.address}</p>
                 <p class="card-text">{`This posting was made by ${data.listingUserId} on ${data.date}`}</p>
                 <p class="card-text">{data.description}</p>
-                <a href="#" class="btn btn-primary">Check It Out</a>
+                <a href={`/lisitings/${data.lisingId}`} class="btn btn-primary">Check It Out</a>
             </div>
             <div class="w-100">
             </div>

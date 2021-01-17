@@ -37,7 +37,7 @@ export const profilesFailed = (errmess) =>({
 // fetching for Listings
 
 export const fetchListings = () => (dispatch) => {
-    return fetch(baseUrl + 'listings')
+    return fetch(baseUrl + 'getAllListings')
         .then(response => {
             if(response.ok){
                 return response;

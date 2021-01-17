@@ -1,14 +1,17 @@
 import React from 'react';
 import { price } from '../ListingsScreen/utils/price';
 
-export default function SingleListing({data}){
+import { data } from './utils/testInput';
+
+// set props as data once connected to backend
+export default function SingleListing(){
     return(
         <div className="container">
             <div className="row">
                 <div className="col-12 col-lg-7">
                     <h1>{data.title}</h1>
                     <h3>{`${price(data.price)} per ${data.payRate}`}</h3>
-                    <h5 className="text-muted">{data.adress}</h5>
+                    <h5 className="text-muted">{data.address}</h5>
                     <div className="col-12" style={{backgroundColor: 'skyblue'}}>
                         <h2> Primary Features </h2>
                         <div className="col">
@@ -27,7 +30,7 @@ export default function SingleListing({data}){
                     <h2> Contact the seller! </h2>
                     <div className="row">
                         <h4>Email</h4>
-                        <p>{data.userId}</p>
+                        <p>{data.listingUserId}</p>
                     </div>
                     <div className="row">
                         <h4>Email</h4>
