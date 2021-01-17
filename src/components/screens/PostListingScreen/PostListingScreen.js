@@ -9,16 +9,42 @@ import { Button, Formgroup, Label, Input, FormFeedback } from 'reactstrap';
 // const isNumber = (val) => !isNaN(Number(val));
 // const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
-export function PostListing(){
+export function PostListing(props){
 
     const { register, handleSubmit } = useForm(); 
 
+    function getFormData(object) {
+        const formData = new FormData();
+        Object.keys(object).forEach(key => formData.append(key, object[key]));
+        return formData;
+    }
+
     function onSubmit(values) {
         console.log("Current State is: " + JSON.stringify(values));
+        const formData = getFormData(values);
+        console.log(formData);
         // this.props.postFeedback(values);
         // this.props.resetFeedbackForm();
     }
     
+    if(!props.auth.isAuthenticated){
+        return(
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h1>Please sign in or create an account before posting a listing</h1>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <h4> You can login with the button above and then start posting away!</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
+
     return (
         <div className="container">
             <div className="row">
@@ -26,7 +52,22 @@ export function PostListing(){
                     <h1>WANT TO POST A RESIDENCE?</h1>
                 </div>
                 <div className="col-12">
-                    <form model="postListing" onSubmit={handleSubmit(onSubmit)}>
+                    <form model="postListing" name="postListing" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="row form-group">
+                            <div className="col-3 col-md-2">
+                                <Label htmlFor="title"> TITLE </Label>
+                            </div>
+                            <div className="col">
+                                <input 
+                                    model=".title" 
+                                    id="title" 
+                                    name="title" 
+                                    className="form-control"
+                                    placeholder="Title"
+                                    ref={register}
+                                    />
+                            </div>
+                        </div>
                         <div className="row form-group">
                             <div className="col-3 col-md-2">
                                 <Label htmlFor="address"> ADDRESS </Label>
@@ -61,6 +102,64 @@ export function PostListing(){
                         </div>
                         <div className="row form-group">
                             <div className="col-3 col-md-2">
+                                <Label htmlFor="payRate" > PAY RATE </Label>
+                            </div>
+                            <div className="col">
+                                <select name="payRate">
+                                    <option value="week"> Weekly </option>
+                                    <option value="half month"> Monthly </option>
+                                    <option value="month"> Monthly </option>
+                                    <option value="half year"> Semi-annually </option>
+                                    <option value="year"> Yearly </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="row form-group">
+                            <div className="col-3 col-md-2">
+                                <Label htmlFor="numBathrooms" > NUMBER OF BATHROOMS </Label>
+                            </div>
+                            <div className="col">
+                                <select name="numBathrooms">
+                                    <option value={1}> 1 </option>
+                                    <option value={2}> 2 </option>
+                                    <option value={3}> 3 </option>
+                                    <option value={4}> 4 </option>
+                                    <option value={5}> 5 </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="row form-group">
+                            <div className="col-3 col-md-2">
+                                <Label htmlFor="numBedrooms" > NUMBER OF BEDROOMS </Label>
+                            </div>
+                            <div className="col">
+                                <select name="numBedrooms">
+                                    <option value={1}> 1 </option>
+                                    <option value={2}> 2 </option>
+                                    <option value={3}> 3 </option>
+                                    <option value={4}> 4 </option>
+                                    <option value={5}> 5 </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="row form-group">
+                            <div className="col-3 col-md-2">
+                                <Label htmlFor="area"> SQUARE FOOTAGE </Label>
+                            </div>
+                            <div className="col">
+                                <input
+                                    model=".area"
+                                    id="area"
+                                    name="area"
+                                    className="form-control"
+                                    placeholder="Square Footage"
+                                    ref={register}
+                                    type='number'
+                                    />
+                            </div>
+                        </div>
+                        <div className="row form-group">
+                            <div className="col-3 col-md-2">
                                 <Label htmlFor="telnum"> PHONE NUMBER </Label>
                             </div>
                             <div className="col">
@@ -71,35 +170,19 @@ export function PostListing(){
                                     className="form-control"
                                     placeholder="Phone Number"
                                     ref={register}
-                                    type=''
+                                    type='number'
                                     />
                             </div>
                         </div>
                         <div className="row form-group">
                             <div className="col-3 col-md-2">
-                                <Label htmlFor="email"> EMAIL </Label>
+                                <Label htmlFor="description"> DESCRIPTION </Label>
                             </div>
                             <div className="col">
                                 <input
-                                    model=".email"
-                                    id="email"
-                                    name="email"
-                                    className="form-control"
-                                    rows="12"
-                                    placeholder="Email"
-                                    ref={register}
-                                    />
-                            </div>
-                        </div>
-                        <div className="row form-group">
-                            <div className="col-3 col-md-2">
-                                <Label htmlFor="message"> DESCRIPTION </Label>
-                            </div>
-                            <div className="col">
-                                <input
-                                    model=".message"
-                                    id="message"
-                                    name="message"
+                                    model=".description"
+                                    id="description"
+                                    name="description"
                                     className="form-control"
                                     placeholder="Type your description here"
                                     ref={register}
@@ -108,14 +191,13 @@ export function PostListing(){
                         </div>
                         <div className="row form-group">
                             <div className="col-3 col-md-2">
-                                <Label htmlFor="message"> IMAGES </Label>
+                                <Label htmlFor="images"> IMAGES </Label>
                             </div>
                             <div className="col">
                                 <input
-                                    model=".file"
-                                    id="file"
-                                    name="file"
-                                    className="form-control"
+                                    model=".images"
+                                    id="images"
+                                    name="images"
                                     ref={register}
                                     type="file"
                                     />

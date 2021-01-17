@@ -82,11 +82,11 @@ class Header extends Component {
                                     POST LISTING
                                 </NavLink>
                             </NavItem>
-                            <NavItem>
+                            {/* <NavItem>
                                 <NavLink class="nav-link" href="/contact">
                                     CONTACT
                                 </NavLink>
-                            </NavItem>
+                            </NavItem> */}
                             <NavItem>
                                 { !this.props.auth.isAuthenticated ?
                                     <Button outline onClick={this.toggleModal}>
@@ -129,14 +129,9 @@ class Header extends Component {
                                 <Label htmlFor="password">Password</Label>
                                 <Input type="password" id="password" name="password" innerRef={(input) => this.password = input}/>
                             </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" name="remember" innerRef={(input) => this.remember = input}/>
-                                    Remember Me
-                                </Label>
-                            </FormGroup>
+
                             <FormGroup>
-                                <Link to="/signup"> Don't have an account? Sign Up! </Link>
+                                <Link to="/signup" onClick={this.toggleModal}> Don't have an account? Sign Up! </Link>
                             </FormGroup>
                             <Button className="primary">Login</Button>
                         </Form>

@@ -217,3 +217,56 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('creds');
     dispatch(receiveLogout())
 }
+
+// post listing
+
+export const requestPostListing = (data) => {
+    return {
+        type: ActionTypes.POST_LISTING_REQUEST,
+        data
+    }
+}
+  
+export const receivePostListing = (response) => {
+    return {
+        type: ActionTypes.POST_LISTING_SUCCESS
+    }
+}
+  
+export const PostListingError = (message) => {
+    return {
+        type: ActionTypes.POST_LISTING_FAILURE,
+        message
+    }
+}
+
+export const PostListingUser = (data) => (dispatch) => {
+    dispatch(requestPostListing(data));
+    const rawData = new URLSearchParams(Object.keys(data).map(key=>[key,data[key]]));
+    console.log(rawData.toString());
+    return fetch(baseUrl + 'post_url', {
+        method: 'POST',
+        headers: { 
+            'Content-Type':'application/x-www-form-urlencoded' 
+        },
+        body: rawData.toString()
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            alert('there was an error posting this listing');
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            throw error;
+        })
+    .then(response => response.json())
+    .then(response => {
+        dispatch(receivePostListing(response));
+    })
+    .catch(error => dispatch(PostListingError(error.message)))
+};

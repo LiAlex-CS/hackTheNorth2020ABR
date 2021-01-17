@@ -10,7 +10,7 @@ import ListingsScreen from './screens/ListingsScreen/ListingsScreen';
 import PostListingScreen from './screens/PostListingScreen/PostListingScreen';
 // import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 // import ContactScreen from './screens/ContactScreen/ContactScreen';
-// import SingleListingScreen from './screens/SingleListingScreen/SingleListingScreen';
+import SingleListingScreen from './screens/SingleListingScreen/SingleListingScreen';
 import SignUpScreen from './screens/SignUpScreen/SignUpScreen';
 
 // redux imports
@@ -18,6 +18,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 import { fetchListings, fetchProfiles, loginUser, logoutUser, signUpUser } from '../redux/ActionCreators';
+import SingleListing from './screens/SingleListingScreen/SingleListingScreen';
 
 const mapStateToProps = state =>{
     return {
@@ -56,13 +57,22 @@ class Main extends Component {
 
         const ListingScreenPage = () =>{
             return(
-                <ListingsScreen/>
+                <ListingsScreen
+                    listings={this.props.listings.listings}
+                    listingsLoading = {this.props.listings.isLoading}
+                    listingsErrMess={this.props.listings.errMess}
+                    profiles={this.props.profiles.profiles}
+                    profilesLoading = {this.props.profiles.isLoading}
+                    profilesErrMess={this.props.profiles.errMess}
+                    />
             );
         }
 
         const PostListingScreenPage = () =>{
             return(
-                <PostListingScreen/>
+                <PostListingScreen
+                    auth={this.props.auth}
+                    />
             );
         }
 
@@ -86,9 +96,13 @@ class Main extends Component {
             );
         }
 
-        const SingleListingScreenPage = () =>{
+        const SingleListingScreenPage = ({match}) =>{
             return(
-                <div></div>
+                <SingleListing
+                    data={this.props.listings.listings.filter(listing => listing._id === match.params.listingId)}
+                    isLoading = {this.props.listings.isLoading}
+                    errMess={this.props.listings.errMess}
+                    />
             );
         }
 
@@ -105,7 +119,7 @@ class Main extends Component {
                     <Route path="/post_listing" component={PostListingScreenPage}/>
                     <Route path="/:profileId" component={SignUpScreenPage}/>
                     <Route path="/signup" component={SignUpScreenPage}/>
-                    <Route path="/contact" component={ContactScreenPage}/>
+                    {/* <Route path="/contact" component={ContactScreenPage}/> */}
                     <Route path="/listings/:listingId" component={SingleListingScreenPage}/>
                     <Redirect to="/home"/>
                 </Switch>
